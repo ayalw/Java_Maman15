@@ -24,7 +24,8 @@ public class Main {
         executor.shutdown();
         while (!executor.isTerminated()) {
         }
-        System.out.println("Finished all threads");
+        System.out.println("Finished all threads! Printing repository:");
+        System.out.println(repository);
 
 
     }

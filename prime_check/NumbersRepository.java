@@ -18,7 +18,7 @@ public class NumbersRepository {
         for (int num : m_numbers.keySet()) {
             if (m_numbers.get(num) == PrimeCheckStatusEnum.NOT_STARTED) {
                 m_numbers.put(num, PrimeCheckStatusEnum.IN_PROGRESS);
-                System.out.println("Assigning number "+ num+ " to worker "+workerName);
+                //System.out.println("Assigning number "+ num+ " to worker "+workerName);
                 return num;
             }
         }
@@ -30,7 +30,22 @@ public class NumbersRepository {
                 PrimeCheckStatusEnum.FINISHED_RESULT_PRIME
                 :
                 PrimeCheckStatusEnum.FINISHED_RESULT_NOT_PRIME;
-        System.out.println("got result from worker " + workerName + " for number " + number + ": " + result);
+        //System.out.println("got result from worker " + workerName + " for number " + number + ": " + result);
         m_numbers.put(number, result);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int num : m_numbers.keySet()) {
+            sb.append("[");
+            sb.append(num);
+            sb.append("]");
+            sb.append("[");
+            sb.append(m_numbers.get(num));
+            sb.append("]");
+            sb.append(System.lineSeparator());
+        }
+        return sb.toString();
     }
 }
