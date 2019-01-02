@@ -99,9 +99,14 @@ public class Airport {
         m_runwaysToFlights.put(runwayNumber, -1);
         m_flightsToRunways.put(flightNumber, -1);
         try {
+            if (m_pendingFlights.isEmpty()) {
+                print("No pending flights!");
+                return;
+            }
             FlightRequest request = m_pendingFlights.take(); //Blocking!
             print("Assigning runway " + runwayNumber + " to flight " + request.getFlightNumber());
             m_flightsToRunways.put(request.getFlightNumber(), runwayNumber);
+            m_runwaysToFlights.put(runwayNumber, request.getFlightNumber());
             notifyAll();
         } catch (InterruptedException e) {
             e.printStackTrace();

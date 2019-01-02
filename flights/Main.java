@@ -25,18 +25,5 @@ public class Main {
             Runnable worker = new Flight(i * 100, origin, destination);
             executor.execute(worker);
         }
-//        try {
-//            Thread.sleep(3000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        while (!telAviv.areAllRunwaysFree() || !jfk.areAllRunwaysFree()) {
-//
-//        }
-        System.out.println("~~~ Finished simulation! ~~~");
-    }
-
-    public static boolean getRandomBoolean() {
-        return Math.random() < 0.5;
     }
 }
