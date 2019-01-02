@@ -1,7 +1,15 @@
 package maman15.prime_check;
 
+/**
+ * Calculation utilities.
+ */
 public class Utils {
-    //checks whether an int is prime or not.
+
+    /**
+     * Prime check calculation (can be optimized for better performance, not in scope of this maman)
+     * @param n
+     * @return
+     */
     public static boolean isPrime(int n) {
         for(int i=2;i<n;i++) {
             if(n%i==0)

@@ -13,7 +13,7 @@ public class Main {
         ExecutorService executor = Executors.newFixedThreadPool(numOfFlights);
         Airport origin;
         Airport destination;
-        for (int i=0; i<numOfFlights; i++) {
+        for (int i=1; i<=numOfFlights; i++) {
             if (new Random().nextBoolean()) {
                 origin = telAviv;
                 destination = jfk;
@@ -25,5 +25,9 @@ public class Main {
             Runnable worker = new Flight(i * 100, origin, destination);
             executor.execute(worker);
         }
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+        }
+        System.out.println("*~*~*~*~*~*~ All flights have reached their destinations! *~*~*~*~*~*~");
     }
 }

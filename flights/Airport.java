@@ -5,14 +5,42 @@ import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
+/**
+ * This class represents an airport.
+ * Its public methods can be called by multiple threads.
+ */
 public class Airport {
 
+    /**
+     * Airport name
+     */
     private String m_name;
+
+    /**
+     * Number of runways to allocate, when they are all occupied, a queue will be used for FIFO allocation.
+     */
     private int m_numOfRunways;
+
+    /**
+     * Keeps track of flights which are active in any runway. -1 means this flight is not using any runway.
+     */
     private Map<Integer, Integer> m_flightsToRunways;
+
+    /**
+     * Keeps track of the runways. -1 means free.
+     */
     private Map<Integer, Integer> m_runwaysToFlights;
+
+    /**
+     * FIFO queue for flights which requested a runway when runways are occupied.
+     */
     private BlockingQueue<FlightRequest> m_pendingFlights;
 
+    /**
+     * Constructor
+     * @param name
+     * @param numOfRunways
+     */
     public Airport(String name, int numOfRunways) {
         m_name = name;
         m_numOfRunways = numOfRunways;
@@ -29,6 +57,11 @@ public class Airport {
         return m_name;
     }
 
+    /**
+     * This method is to be called by a Flight object asking to use a runway for take off.
+     * @param flightNumber
+     * @return runway number
+     */
     public synchronized int depart(int flightNumber) {
         print("Got request to DEPART from flight number " + flightNumber);
 
@@ -62,6 +95,11 @@ public class Airport {
         return -1;
     }
 
+    /**
+     * This method is to be called by a Flight object asking to use a runway for landing.
+     * @param flightNumber
+     * @return runway number
+     */
     public synchronized int land(int flightNumber) {
         print("Got request to LAND from flight number " + flightNumber);
 
@@ -94,6 +132,10 @@ public class Airport {
         return -1;
     }
 
+    /**
+     * This method is to be called by a Flight object asking to clear a runway after take off or landing.
+     * @param flightNumber
+     */
     public synchronized void freeRunway(int flightNumber, int runwayNumber) {
         print("Flight " + flightNumber + " has reported that runway " + runwayNumber + " is now free.");
         m_runwaysToFlights.put(runwayNumber, -1);
@@ -115,16 +157,6 @@ public class Airport {
 
     private void print(String str) {
         System.out.println("[" + m_name + "] " + str);
-    }
-
-    public synchronized boolean areAllRunwaysFree() {
-        boolean foundBusyRunway = false;
-        for (int runway : m_runwaysToFlights.keySet()) {
-            if (m_runwaysToFlights.get(runway) != -1) {
-                foundBusyRunway = true;
-            }
-        }
-        return !foundBusyRunway;
     }
 
 }

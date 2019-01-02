@@ -26,7 +26,5 @@ public class Main {
         }
         System.out.println("Finished all threads! Printing repository:");
         System.out.println(repository);
-
-
     }
 }

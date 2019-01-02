@@ -2,6 +2,11 @@ package maman15.flights;
 
 public class FlightRequest {
 
+    /**
+     * This class is to be used in FIFO queues to denote the order of requests.
+     * @param flightNumber
+     * @param requestType
+     */
     public FlightRequest(int flightNumber, FlightRequestTypeEnum requestType) {
         m_flightNumber = flightNumber;
         m_requestType = requestType;
@@ -15,7 +20,4 @@ public class FlightRequest {
         return m_flightNumber;
     }
 
-    public FlightRequestTypeEnum getRequestType() {
-        return m_requestType;
-    }
 }
